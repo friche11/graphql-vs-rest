@@ -6,8 +6,8 @@ Este projeto consiste em um experimento controlado, desenvolvido em Python, para
 ## Métricas de Desempenho Avaliadas
 Este projeto analisa as seguintes métricas de performance de APIs:
 
-- **Tempo de Resposta (ms)**: Mede a latência total da requisição do ponto de vista do cliente. Corresponde ao tempo decorrido entre o envio da requisição e o recebimento completo da resposta. Um tempo menor indica uma API mais rápida.
-- **Tamanho da Resposta (bytes)**: Mede o "peso" total do corpo da resposta HTTP. Um tamanho menor indica uma maior eficiência no uso de dados, o que é crucial para aplicações móveis e com banda limitada, além de evitar o *over-fetching*.
+- **Tempo de Resposta (ms)**: Mede a latência total da requisição do ponto de vista do cliente. Corresponde ao tempo decorrido entre o envio da requisição e o recebimento completo da resposta.
+- **Tamanho da Resposta (bytes)**: Mede o "peso" total do corpo da resposta HTTP. Um tamanho menor indica uma maior eficiência no uso de dados e evita o *over-fetching*.
 
 ## Requisitos
 - Python 3.8 ou superior instalado.
@@ -19,13 +19,14 @@ Este projeto analisa as seguintes métricas de performance de APIs:
 ## Instruções de Execução
 
 1. **Estrutura de Pastas:**
-   Clone ou crie a seguinte estrutura de pastas para o projeto, garantindo que os scripts estejam dentro da pasta `code`:
+   Garanta que seu projeto tenha a seguinte estrutura, com todos os scripts Python dentro da pasta `code`:
    ```
-   /seu-projeto
+   /graphql-rest-experiment
    |-- /code
    |   |-- main.py
    |   |-- experimento.py
    |   |-- analise.py
+   |   |-- analise_avancada.py
    |-- /docs
    |-- /outputs
    |-- requirements.txt
@@ -33,28 +34,33 @@ Este projeto analisa as seguintes métricas de performance de APIs:
    ```
 
 2. **Instale as Dependências:**
-   Navegue até a pasta raiz do projeto (`/seu-projeto`) e instale as bibliotecas necessárias:
+   Navegue até a pasta raiz do projeto e instale as bibliotecas necessárias:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Execute o Projeto Completo:**
-   Para rodar o experimento e a análise, execute o script principal a partir da pasta `code`. Este único comando cuidará de tudo.
+3. **Execute o Menu Principal:**
+   Para rodar o projeto, navegue até a pasta `code` e execute o script `main.py`.
    ```bash
    cd code
    python main.py
    ```
-   O script irá primeiro executar o experimento (coletando 200 pontos de dados) e, em seguida, realizará a análise estatística e a geração dos gráficos.
+   Você verá um menu interativo. Siga as opções:
+    - **Opção 1:** Para executar o experimento de coleta de dados. Isso irá (re)gerar o arquivo `results.csv`.
+    - **Opção 2:** Para rodar a análise básica e gerar os gráficos de **Boxplot**.
+    - **Opção 3:** Para rodar a análise avançada e gerar os gráficos de **Barras, Densidade e Linhas** para o dashboard.
 
 ## Saída Esperada
-Após a execução, os seguintes artefatos serão gerados:
+Após a execução das opções do menu, os seguintes artefatos serão gerados:
 
-- **`../outputs/results.csv`**: Um arquivo CSV contendo os dados brutos de todas as 200 medições (tempo e tamanho para cada requisição).
-- **`../docs/rq1_tempo_boxplot.png`**: Um gráfico de boxplot comparando o tempo de resposta entre GraphQL e REST.
-- **`../docs/rq2_tamanho_boxplot.png`**: Um gráfico de boxplot comparando o tamanho da resposta entre as duas APIs.
-- **Relatório no Terminal**: O terminal exibirá as estatísticas descritivas (média, mediana) e os resultados dos testes de hipóteses (p-values).
+- **`../outputs/results.csv`**: Arquivo CSV contendo os dados brutos de todas as medições. (Gerado pela Opção 1)
+- **`../docs/rq1_tempo_boxplot.png`**: Gráfico de boxplot comparando o tempo de resposta. (Gerado pela Opção 2)
+- **`../docs/rq2_tamanho_boxplot.png`**: Gráfico de boxplot comparando o tamanho da resposta. (Gerado pela Opção 2)
+- **`../docs/fig_barras_medias.png`**: Gráfico de barras comparando as médias de performance. (Gerado pela Opção 3)
+- **`../docs/fig_densidade_tempo.png`**: Gráfico de densidade mostrando a distribuição dos tempos. (Gerado pela Opção 3)
+- **`../docs/fig_linha_pareada.png`**: Gráfico de linhas mostrando a consistência pareada das medições. (Gerado pela Opção 3)
 
 ## Observações
-- Os resultados do tempo de resposta podem variar ligeiramente a cada execução devido a flutuações nas condições da rede e na carga do servidor da API pública.
+- Os resultados do tempo de resposta podem variar ligeiramente a cada execução devido a flutuações nas condições da rede.
 - O código está preparado para criar as pastas `outputs` e `docs` automaticamente caso elas não existam.
-- Para uma análise aprofundada dos resultados e conclusões, consulte o **Relatório Final** que está dentro da pasta `docs`.
+- Para uma análise aprofundada dos resultados e conclusões, consulte o **Relatório Final** que se encontra na pasta `docs`.
